@@ -1,0 +1,283 @@
+Q1. Bubble Sort
+===============
+
+Algorithm Explanation:
+---------------------
+Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. This process is repeated until the list is sorted. The algorithm gets its name because smaller elements "bubble" to the top of the list with each pass.
+
+Key Code Explanations:
+----------------------
+- `void bubbleSort(int arr[], int n)`: This function sorts the array using Bubble Sort. It uses two nested loops: the outer loop for each pass, and the inner loop for comparing adjacent elements.
+- `if (arr[j] > arr[j+1]) { ... }`: If the current element is greater than the next, swap them. This is the core comparison and swap step.
+- `int main()`: The main function handles user input and output.
+- `int *arr = (int *)malloc(n * sizeof(int));`: Dynamically allocates memory for the array based on user input.
+- `for (int i = 0; i < n; i++) scanf("%d", &arr[i]);`: Reads each element from the user.
+- `bubbleSort(arr, n);`: Calls the sorting function.
+- `for (int i = 0; i < n; i++) printf("%d ", arr[i]);`: Prints the sorted array.
+- `free(arr);`: Frees the dynamically allocated memory.
+
+
+Q2. 0/1 Knapsack Problem
+========================
+
+Algorithm Explanation:
+---------------------
+The 0/1 Knapsack problem is a classic optimization problem. Given a set of items, each with a weight and a value, determine the maximum value that can be put in a knapsack of a fixed capacity. Each item can be included or excluded (hence 0/1), and the goal is to maximize the total value without exceeding the capacity.
+
+Key Code Explanations:
+----------------------
+- `int max(int a, int b)`: Utility function to return the maximum of two values.
+- `int **K = (int **)malloc((n+1) * sizeof(int *));`: Allocates a 2D array for dynamic programming (DP) table.
+- `for (int i = 0; i <= n; i++) for (int w = 0; w <= W; w++)`: Fills the DP table for all items and capacities.
+- `if (i==0 || w==0) K[i][w] = 0;`: Base case: no items or zero capacity means zero value.
+- `else if (wt[i-1] <= w) ...`: If the current item fits, choose the better of including or excluding it.
+- `K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]], K[i-1][w]);`: Include the item or not, whichever gives higher value.
+- `int result = K[n][W];`: The answer is in the last cell of the DP table.
+- `free(K[i]); free(K);`: Frees the DP table memory.
+- User input is taken for number of items, their values, weights, and knapsack capacity.
+
+
+Q3. Fractional Knapsack Problem
+==============================
+
+Algorithm Explanation:
+---------------------
+Fractional Knapsack allows taking fractions of items. The greedy approach is optimal: always take as much as possible of the item with the highest value-to-weight ratio.
+
+Key Code Explanations:
+----------------------
+- `typedef struct { int value, weight; double ratio; } Item;`: Defines an item with value, weight, and value/weight ratio.
+- `qsort(items, n, sizeof(Item), cmp);`: Sorts items by ratio in descending order.
+- `for (int i = 0; i < n && W > 0; i++)`: Iterates through sorted items, taking as much as possible.
+- `if (items[i].weight <= W) ... else ...`: If the whole item fits, take it; otherwise, take a fraction.
+- `totalValue += items[i].ratio * W;`: Adds the fractional value for the remaining capacity.
+- User input is taken for number of items, their values, weights, and knapsack capacity.
+
+
+Q4. Addition of Two Matrices
+============================
+
+Algorithm Explanation:
+---------------------
+Matrix addition adds two matrices by adding their corresponding elements. Both matrices must have the same dimensions.
+
+Key Code Explanations:
+----------------------
+- `int **a, **b, **c;`: Declares pointers for the two input matrices and the result matrix.
+- Memory is dynamically allocated for all matrices based on user input for rows and columns.
+- User is prompted to enter elements for both matrices.
+- `c[i][j] = a[i][j] + b[i][j];`: Adds corresponding elements.
+- The result matrix is printed row by row.
+- All dynamically allocated memory is freed at the end.
+
+
+Q5. Multiplication of Two Matrices
+==================================
+
+Algorithm Explanation:
+---------------------
+Matrix multiplication multiplies two matrices if the number of columns in the first equals the number of rows in the second. The result matrix's element at (i, j) is the sum of products of the ith row of the first and the jth column of the second.
+
+Key Code Explanations:
+----------------------
+- User inputs the dimensions and elements of both matrices.
+- Checks if multiplication is possible (`c1 != r2`).
+- Dynamically allocates memory for all matrices.
+- Initializes the result matrix to zero.
+- Triple nested loop: `for (i) for (j) for (k) c[i][j] += a[i][k] * b[k][j];` performs the multiplication.
+- Prints the result matrix.
+- Frees all allocated memory.
+
+
+Q6. Merge Sort (Divide and Conquer)
+===================================
+
+Algorithm Explanation:
+---------------------
+Merge Sort is a divide-and-conquer sorting algorithm. It divides the array into halves, recursively sorts each half, and then merges the sorted halves.
+
+Key Code Explanations:
+----------------------
+- `mergeSort(arr, l, r)`: Recursively sorts the array from index l to r.
+- `merge(arr, l, m, r)`: Merges two sorted subarrays.
+- Temporary arrays L and R are dynamically allocated for merging.
+- The merging process compares elements from both subarrays and builds the sorted result.
+- User inputs the array size and elements.
+- The sorted array is printed at the end.
+- All dynamic memory is freed.
+
+
+Q7. Dijkstra's Algorithm
+========================
+
+Algorithm Explanation:
+---------------------
+Dijkstra's algorithm finds the shortest path from a source node to all other nodes in a weighted graph with non-negative weights.
+
+Key Code Explanations:
+----------------------
+- `int minDistance(int dist[], int sptSet[])`: Finds the vertex with the minimum distance not yet processed.
+- `dijkstra(graph, src)`: Main function to compute shortest paths.
+- `dist[]`: Stores shortest distances from source.
+- `sptSet[]`: Tracks vertices included in the shortest path tree.
+- For each vertex, updates the distance if a shorter path is found.
+- Prints the shortest distances from the source to all vertices.
+
+
+Q8. N-Queens Problem (Backtracking)
+===================================
+
+Algorithm Explanation:
+---------------------
+The N-Queens problem is to place N queens on an N×N chessboard so that no two queens threaten each other. This is solved using backtracking.
+
+Key Code Explanations:
+----------------------
+- `printSolution(board, N)`: Prints the board configuration.
+- `isSafe(board, N, row, col)`: Checks if a queen can be placed at (row, col).
+- `solveNQUtil(board, N, col)`: Recursively tries to place queens column by column.
+- If a solution is found, it is printed; otherwise, a message is shown.
+- User inputs N, and the board is dynamically allocated.
+- All memory is freed at the end.
+
+
+Q9. Floyd Warshall Algorithm
+===========================
+
+Algorithm Explanation:
+---------------------
+Floyd Warshall finds shortest paths between all pairs of vertices in a weighted graph (can handle negative weights, but no negative cycles).
+
+Key Code Explanations:
+----------------------
+- `dist[V][V]`: Matrix to store shortest distances.
+- Initializes `dist` with the input graph.
+- Triple nested loop: For each intermediate vertex k, updates the shortest path between every pair (i, j).
+- If a shorter path is found via k, updates `dist[i][j]`.
+- Prints the final shortest distance matrix.
+
+
+Q10. Kruskal's Algorithm
+========================
+
+Algorithm Explanation:
+---------------------
+Kruskal's algorithm finds a minimum spanning tree (MST) for a connected, weighted graph. It adds edges in order of increasing weight, skipping those that would form a cycle.
+
+Key Code Explanations:
+----------------------
+- `struct Edge`: Represents an edge with source, destination, and weight.
+- `qsort(edges, E, sizeof(edges[0]), myComp)`: Sorts edges by weight.
+- `find()` and `Union()`: Used for cycle detection (Disjoint Set/Union-Find).
+- Iterates through sorted edges, adding them to the MST if they don't form a cycle.
+- Prints the edges in the MST.
+
+
+Q11. Randomized Quick Sort
+==========================
+
+Algorithm Explanation:
+---------------------
+Quick Sort is a divide-and-conquer sorting algorithm. Randomized Quick Sort chooses a random pivot to avoid worst-case performance on sorted data.
+
+Key Code Explanations:
+----------------------
+- `randomPartition(arr, low, high)`: Picks a random pivot and partitions the array.
+- `swap(&arr[pivot], &arr[high])`: Moves the random pivot to the end.
+- `quickSort(arr, low, high)`: Recursively sorts the subarrays.
+- User inputs the array size and elements.
+- The sorted array is printed at the end.
+- All dynamic memory is freed.
+
+
+Q12. Ford-Fulkerson (Max Flow)
+==============================
+
+Algorithm Explanation:
+---------------------
+The Ford-Fulkerson algorithm computes the maximum flow in a flow network using augmenting paths and residual capacities.
+
+Key Code Explanations:
+----------------------
+- `bfs()`: Finds an augmenting path using BFS in the residual graph.
+- `fordFulkerson()`: Main function to compute max flow. Repeatedly finds augmenting paths and updates residual capacities.
+- `rGraph[u][v] -= path_flow; rGraph[v][u] += path_flow;`: Updates the residual graph after each augmentation.
+- User inputs the number of vertices, source, sink, and the capacity matrix.
+- Prints the maximum possible flow.
+- All dynamic memory is freed.
+
+
+Q13. Name String Pattern Matching
+================================
+
+Algorithm Explanation:
+---------------------
+Pattern matching checks if a substring (pattern) exists within a string (name). This is a simple brute-force approach.
+
+Key Code Explanations:
+----------------------
+- User inputs the name and pattern.
+- Outer loop: Tries every possible starting position in the name.
+- Inner loop: Checks if the pattern matches at the current position.
+- If a match is found, prints a message; otherwise, prints not found.
+
+
+Q14. Travelling Salesman Problem (TSP)
+======================================
+
+Algorithm Explanation:
+---------------------
+TSP asks for the shortest possible route that visits each city exactly once and returns to the origin city. This code uses backtracking.
+
+Key Code Explanations:
+----------------------
+- `tsp(currPos, n, count, cost, ans)`: Recursively explores all possible tours.
+- `visited[]`: Tracks which cities have been visited.
+- Updates the minimum cost if a complete tour is found.
+- Prints the minimum cost.
+
+
+Q15. Breadth-First Search (BFS)
+===============================
+
+Algorithm Explanation:
+---------------------
+BFS traverses a graph level by level, visiting all neighbors before moving to the next level.
+
+Key Code Explanations:
+----------------------
+- `queue[]`: Used to keep track of nodes to visit.
+- `visited[]`: Marks nodes as visited.
+- For each node, visits all unvisited neighbors and adds them to the queue.
+- Prints the order of traversal.
+
+
+Q16. Depth-First Search (DFS)
+=============================
+
+Algorithm Explanation:
+---------------------
+DFS traverses a graph by going as deep as possible before backtracking.
+
+Key Code Explanations:
+----------------------
+- `dfsUtil(node, visited)`: Recursively visits all unvisited neighbors.
+- `visited[]`: Marks nodes as visited.
+- Prints the order of traversal.
+
+
+Q17. Prim's Algorithm
+====================
+
+Algorithm Explanation:
+---------------------
+Prim's algorithm finds a minimum spanning tree (MST) by growing the MST one edge at a time, always choosing the smallest edge that connects a new vertex.
+
+Key Code Explanations:
+----------------------
+- `minKey(key, mstSet)`: Finds the vertex with the minimum key value not yet included in the MST.
+- `primMST(graph)`: Main function to build the MST.
+- `key[]`: Stores the minimum weight edge to each vertex.
+- `parent[]`: Stores the MST structure.
+- `mstSet[]`: Tracks vertices included in the MST.
+- Prints the edges and weights of the MST. 
