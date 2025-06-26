@@ -2,8 +2,14 @@
 #include <string.h>
 
 int main() {
-    char name[100] = "SUBHAM KUMAR";
-    char pattern[100] = "KUMAR";
+    char name[100];
+    char pattern[100];
+    printf("Enter the name: ");
+    fgets(name, sizeof(name), stdin);
+    name[strcspn(name, "\n")] = 0; // Remove trailing newline
+    printf("Enter the pattern to search: ");
+    fgets(pattern, sizeof(pattern), stdin);
+    pattern[strcspn(pattern, "\n")] = 0; // Remove trailing newline
     int found = 0;
     int n = strlen(name);
     int m = strlen(pattern);

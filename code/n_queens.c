@@ -1,8 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#define N 4
 
-void printSolution(int board[N][N]) {
+void printSolution(int **board, int N) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++)
             printf("%d ", board[i][j]);
@@ -11,7 +11,7 @@ void printSolution(int board[N][N]) {
     printf("\n");
 }
 
-bool isSafe(int board[N][N], int row, int col) {
+bool isSafe(int **board, int N, int row, int col) {
     for (int i = 0; i < col; i++)
         if (board[row][i])
             return false;
@@ -24,29 +24,37 @@ bool isSafe(int board[N][N], int row, int col) {
     return true;
 }
 
-bool solveNQUtil(int board[N][N], int col) {
+bool solveNQUtil(int **board, int N, int col) {
     if (col == N) {
-        printSolution(board);
+        printSolution(board, N);
         return true;
     }
     bool res = false;
     for (int i = 0; i < N; i++) {
-        if (isSafe(board, i, col)) {
+        if (isSafe(board, N, i, col)) {
             board[i][col] = 1;
-            res = solveNQUtil(board, col + 1) || res;
+            res = solveNQUtil(board, N, col + 1) || res;
             board[i][col] = 0;
         }
     }
     return res;
 }
 
-void solveNQ() {
-    int board[N][N] = {0};
-    if (!solveNQUtil(board, 0))
+void solveNQ(int N) {
+    int **board = (int **)malloc(N * sizeof(int *));
+    for (int i = 0; i < N; i++)
+        board[i] = (int *)calloc(N, sizeof(int));
+    if (!solveNQUtil(board, N, 0))
         printf("Solution does not exist\n");
+    for (int i = 0; i < N; i++)
+        free(board[i]);
+    free(board);
 }
 
 int main() {
-    solveNQ();
+    int N;
+    printf("Enter the value of N: ");
+    scanf("%d", &N);
+    solveNQ(N);
     return 0;
 } 

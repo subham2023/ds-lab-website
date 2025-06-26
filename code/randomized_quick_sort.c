@@ -34,12 +34,18 @@ void quickSort(int arr[], int low, int high) {
 
 int main() {
     srand(time(NULL));
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int n;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    int *arr = (int *)malloc(n * sizeof(int));
+    printf("Enter %d elements: ", n);
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
     quickSort(arr, 0, n - 1);
     printf("Sorted array: ");
     for (int i = 0; i < n; i++)
         printf("%d ", arr[i]);
     printf("\n");
+    free(arr);
     return 0;
 } 
